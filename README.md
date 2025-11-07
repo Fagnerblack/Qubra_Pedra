@@ -43,14 +43,25 @@ Ideal para:
 
 Quebra_Pedra/
 ├── cracker_with_wordlist.py # script principal
+
 ├── README.md # este arquivo
+
 ├── MANUAL.md # manual completo (opcional)
+
 ├── CONTRIBUTING.md
+
 ├── SECURITY.md
+
 ├── DISCLAIMER.md
+
 ├── LICENSE
+
 ├── tests/
+
 │ ├── dict_test.txt
+
 │ └── run_test.sh
+
 └── wordlists/
+
 └── WordList_<timestamp>.txt
