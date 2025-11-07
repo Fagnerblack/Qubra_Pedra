@@ -1,0 +1,141 @@
+# 🪨 Manual de Utilização do Quebra Pedra
+
+## 📘 Descrição
+
+O **Quebra Pedra** é uma ferramenta desenvolvida em **Python** para fins **educacionais e de pesquisa em segurança cibernética**, voltada para o **teste e demonstração de quebra de hashes MD5, SHA1 e SHA256**.  
+Ela gera e testa combinações de palavras automaticamente, criando uma **wordlist dinâmica** durante o processo de quebra.
+
+> ⚠️ **Atenção:**  
+> Este projeto é de uso **estritamente educacional e ético**.  
+> Não utilize esta ferramenta em sistemas de terceiros sem autorização explícita.  
+> O autor **não se responsabiliza** por qualquer uso indevido.
+
+---
+
+## ⚙️ Requisitos
+
+- **Python 3.8+**
+- Nenhuma dependência externa (usa apenas bibliotecas nativas)
+- Permissão de leitura e escrita no diretório atual
+- Recomenda-se SSD e máquina com múltiplos núcleos para execuções intensivas
+
+---
+
+## 🚀 Como Usar (comando direto)
+
+Para utilizar o **Quebra Pedra**, abra o **PowerShell (Windows)** ou o **Terminal (Linux/Mac)** e execute o seguinte comando:
+
+```bash
+python Quebra_Pedra.py -d password.txt -H 1f9b839c015becb0568176ca051dc434 --try-all-algos --try-encodings
+python Quebra_Pedra.py -d sualista.txt -H SUA_HASH_QUE_DESEJA_DESCRIPTOGRA --try-all-algos --try-encodings
+
+Explicação rápida dos parâmetros usados acima
+
+-d password.txt — arquivo com palavras-base (uma por linha).
+-H 1f9b839c015becb0568176ca051dc434 — hash alvo (hex).
+--try-all-algos — testa MD5, SHA1 e SHA256 por candidato.
+--try-encodings — tenta múltiplas codificações (utf-8, latin-1, utf-16le, utf-16be).
+
+✅ Recursos principais (resumo)
+
+Geração combinacional de candidatos (1..3 palavras)
+Separadores padrão: ["", "@", "#", "!", ".", "-", "_"]
+Sufixos: anos 1970..2026 (com e sem prefixo @)
+Variações leet limitadas (configurável)
+Capitalização: lower / UPPER / Capitalize / Title
+Multiprocessamento (ProcessPoolExecutor)
+Streaming de tentativas (terminal) e gravação em WordList_<timestamp>.txt
+Persistência simples em learned_patterns.json para priorização
+
+🔧 Parâmetros CLI (detalhado)
+
+Os nomes abaixo seguem o build_cli() presente no código:
+-d, --dict — Arquivo com palavras-base (uma por linha). Obrigatório.
+-H, --hash — Hash alvo (hex). Obrigatório.
+-a, --algorithm — auto | md5 | sha1 | sha256 (default auto).
+--try-all-algos — Tenta md5+sha1+sha256 por candidato.
+--try-encodings — Testa múltiplos encodings.
+-w, --workers — Número de processos (default = os.cpu_count()).
+--max-words-in-seq — Máximo de palavras por sequência (1, 2, ou 3).
+--separators — Separadores CSV (ex.: ,@,#,!,.,-,_).
+--suffixes — Sufixos CSV (ex.: anos e variações).
+--max-leet-per-word — Limite de variações leet por palavra (controle explosão combinatória).
+--batch-bases — Quantos candidatos por permutação antes de enviar ao pool (controle de memória).
+--max-candidates — Limite de candidatos gerados (safety).
+--stream / --no-stream — Habilita/desabilita stream de tentativas.
+--save-attempts — Salva todas as tentativas em WordList_<timestamp>.txt.
+--learn-file — Arquivo de persistência do aprendizado (default learned_patterns.json).
+--result-file — Salva resultado final em arquivo.
+--verbose, -v — Modo verboso / debug.
+
+🔡 Exemplos Práticos (blocos prontos)
+
+Cole os comandos abaixo no terminal conforme sua plataforma. Ajuste caminhos e hashes conforme necessário.
+
+- Clonar, ativar venv e mostrar ajuda (único linha)
+git clone https://github.com/Fagnerblack/Quebra_Pedra.git && cd Quebra_Pedra && python3 -m venv .venv && source .venv/bin/activate || .venv\Scripts\activate && python3 Quebra_Pedra.py -h
+
+- Gerar hash local e executar (Linux/macOS — tudo em sequência)
+echo -n "admin1970" | md5sum | awk '{print $1}' > tests/target_hash.txt && HASH=$(cat tests/target_hash.txt) && python3 Quebra_Pedra.py -d tests/dict_test.txt -H $HASH --max-words-in-seq 1 --try-all-algos --try-encodings --save-attempts --stream
+
+- Gerar hash local e executar (Windows PowerShell — exemplo)
+Write-Output -NoNewline "admin1970" | Get-FileHash -Algorithm MD5 | ForEach-Object { $_.Hash } > tests/target_hash.txt ; $HASH = Get-Content tests/target_hash.txt ; python Quebra_Pedra.py -d tests/dict_test.txt -H $HASH --max-words-in-seq 1 --try-all-algos --try-encodings --save-attempts --stream
+
+- Gerar apenas a WordList (sem comparar hashes)
+python3 Quebra_Pedra.py -d base_words.txt --max-words-in-seq 2 --separators ",@,#,!,.,-,_" --suffixes "1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025,2026" --save-attempts --no-stream
+
+- Execução com tuning (workers, batch, limites)
+python3 Quebra_Pedra.py -d passwords.txt -H <HASH_HEX_AQUI> --workers 4 --batch-bases 5000 --max-candidates 5000000 --max-leet-per-word 64 --max-words-in-seq 2 --try-encodings --save-attempts
+
+🧰 Tuning & Performance — recomendações práticas
+
+Workers: configuração inicial --workers os.cpu_count(). Teste e ajuste; balanceie CPU vs I/O.
+Batch size (--batch-bases): batches maiores reduzem overhead mas consomem mais memória.
+Reduzir espaço de busca: use --max-words-in-seq 1 ou 2 para testes rápidos; diminua --max-leet-per-word.
+I/O: desative --stream para execuções longas e prefira gravação em arquivo (SSD).
+Limites de segurança: sempre configure --max-candidates para evitar explosão descontrolada.
+
+📁 Wordlists e arquivos gerados
+
+WordList_<timestamp>.txt — arquivo contendo todas as tentativas (quando --save-attempts usado).
+WordList.txt — cópia consolidada (se gerada).
+learned_patterns.json — persistência do aprendizado (sufixos frequentes, histórico de cracks).
+IMPORTANTE: não comite wordlists geradas nem learned_patterns.json em repositório público. Adicione-os ao .gitignore.
+
+🧪 Testes e validação local
+
+Inclua tests/dict_test.txt com palavras pequenas para validar o fluxo.
+Gere hashes localmente e use-os como alvo (ex.: echo -n "admin1970" | md5sum).
+Scripts de exemplo: tests/run_test.sh (bash) ou tests/run_test.ps1 (PowerShell) que geram o hash de teste e executam o cracker com limites reduzidos.
+
+❓ Troubleshooting — problemas comuns
+
+Hash inválido → confira o algoritmo: MD5=32 hex, SHA1=40 hex, SHA256=64 hex. Use -a auto se quiser detectar.
+Arquivo de tentativas vazio → verifique permissões e se --save-attempts foi ativado.
+Memória alta → reduza --batch-bases, --max-leet-per-word ou --max-words-in-seq.
+Execução lenta → aumente --batch-bases e --workers, desative --stream, monitore I/O.
+Interrupção (Ctrl+C) → os arquivos line-buffered já escritos permanecerão no disco; revise WordList_<timestamp>.txt.
+
+🔐 Segurança, ética e conformidade
+
+Rode apenas em ambientes controlados e com autorização por escrito.
+Documente escopo e autorização do teste (contratos, emails).
+Nunca publique ou compartilhe wordlists que contenham dados sensíveis.
+Em auditorias comerciais, siga LGPD/GDPR e políticas do cliente.
+Para relatar vulnerabilidades do projeto, consulte SECURITY.md e contate o mantenedor.
+
+📞 Contato
+
+Fagner Santos Mello Pinheiro
+LinkedIn: https://www.linkedin.com/in/fagner-santos-470a80269
+GitHub: https://github.com/Fagnerblack
+E-mail: fagnersantos@live.com
+
+📜 Licença
+
+Projeto licenciado sob MIT License. Consulte LICENSE para os termos completos.
+
+📝 Histórico (versões)
+
+1.0 — 07/11/2025 — Documentação inicial consolidada; comandos agrupados e exemplos prontos.
+Futuras versões: melhorias em exemplos de tuning, scripts de teste e automação de CI.
