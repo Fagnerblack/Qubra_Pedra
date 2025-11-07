@@ -1,0 +1,51 @@
+
+
+Obrigado por considerar contribuir. Este documento define como colaborar de forma segura, técnica e ética.
+
+---
+
+## Regras essenciais
+
+1. **Foco educacional**: Todas as contribuições devem reforçar o propósito de pesquisa/educação. Recursos que facilitem ataque real a terceiros serão rejeitados.
+2. **Autorizações**: Não inclua scripts ou exemplos que incentivem invasão de contas ou uso sem autorização.
+3. **PEP 8**: Código novo deve seguir PEP 8 e ser bem documentado.
+4. **Tests**: Inclua testes (se aplicável) em `tests/` e dados de exemplo que não contenham informações sensíveis.
+5. **Dependências**: Evite bibliotecas externas sem justificativa técnica clara.
+
+---
+
+## Fluxo sugerido
+
+1. Fork do repositório.
+2. Nova branch: `feature/<descrição>` ou `bugfix/<descrição>`.
+3. Faça commits pequenos e atômicos com mensagens claras.
+4. Abra um Pull Request explicando:
+   - Objetivo da mudança;
+   - Impacto na performance;
+   - Considerações de segurança;
+   - Instruções de teste.
+
+---
+
+## Processo de revisão
+
+- PR será avaliado quanto a:
+  - qualidade do código;
+  - impacto na segurança;
+  - clareza da documentação;
+  - compatibilidade com Python 3.8+.
+- O mantenedor pode solicitar mudanças antes da aceitação.
+
+---
+
+## Itens NÃO aceitos
+
+- Adição de payloads, exploits ou técnicas que facilitem violação de sistemas;
+- Upload de wordlists contendo dados pessoais ou confidenciais;
+- Exemplos que instruam realização de atos ilegais.
+
+---
+
+## Agradecimentos
+
+Contribuidores serão mencionados no README conforme desejarem (nome + GitHub).
