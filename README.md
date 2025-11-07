@@ -1,6 +1,9 @@
 # 🧠 Quebra_Pedra  
 Cracker combinacional e gerador de wordlists em Python 3 — criado para pesquisa, estudo e testes **autorizados** de segurança.
 
+> **Autor:** [Fagner Santos Mello Pinheiro](https://www.linkedin.com/in/fagner-santos-470a80269)  
+> **GitHub:** [Fagnerblack](https://github.com/Fagnerblack)
+
 [![Python](https://img.shields.io/badge/python-3.8%2B-blue.svg)](https://www.python.org/)
 [![Segurança](https://img.shields.io/badge/uso%20autorizado%20apenas-red.svg)](https://github.com/Fagnerblack/Qubra_Pedra/blob/f3ed12121afe066cb22adc34b5cebf55431b7a22/Security)
 
