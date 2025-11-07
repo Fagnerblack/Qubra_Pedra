@@ -2,7 +2,7 @@
 Cracker combinacional e gerador de wordlists em Python 3 — criado para pesquisa, estudo e testes **autorizados** de segurança.
 
 [![Python](https://img.shields.io/badge/python-3.8%2B-blue.svg)](https://www.python.org/)
-[![Segurança](https://img.shields.io/badge/uso%20autorizado%20apenas-red.svg)]()
+[![Segurança](https://img.shields.io/badge/uso%20autorizado%20apenas-red.svg)
 
 ---
 
