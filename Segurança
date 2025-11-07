@@ -1,0 +1,53 @@
+# 🔐 Política de Segurança e Ética
+
+## 🧩 Propósito
+
+O `Quebra_Pedra` foi criado para:
+- estudo de algoritmos de hash;
+- análise de dicionários;
+- auditorias **autorizadas**;
+- pesquisa em cibersegurança ética.
+
+---
+
+## ⚠️ Uso Responsável
+
+É **proibido**:
+- usar o programa para acessar ou testar sistemas de terceiros;
+- divulgar hashes, credenciais ou dados obtidos indevidamente;
+- violar Termos de Serviço de plataformas.
+
+Somente use:
+- em ambientes de teste;
+- sob contrato de auditoria;
+- com autorização por escrito.
+
+---
+
+## 🧰 Relato de Vulnerabilidades
+
+Encontrou vulnerabilidade no código ou uso indevido do projeto?
+
+1. **Não divulgue publicamente.**
+2. Envie um e-mail para o mantenedor.
+3. Inclua:
+   - Descrição técnica do problema;
+   - Passos para reproduzir;
+   - Recomendação de correção.
+
+---
+
+## 🧠 Conformidade
+
+Este projeto segue boas práticas de:
+- **OWASP Ethical Disclosure**
+- **MIT License Terms**
+- **Responsible Security Research**
+
+---
+
+## 📄 Contato
+
+**Autor/Mantenedor:** Fagner Santos  
+E-mail: fagnersantos@live.com  
+GitHub: [@fagnersantos](https://github.com/fagnersantos)
